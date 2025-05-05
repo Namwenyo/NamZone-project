@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NamZone - Buy & Sell in Namibia</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="{% static 'marketplace/css/styles.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <header class="header p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
+      <h1 class="text-2xl font-bold text-blue-600 flex items-center">
+        <i class="fas fa-store mr-2"></i>
+        NamZone
+      </h1>
+      <nav class="flex space-x-6">
+        <a href="{% url 'marketplace:home' %}" class="nav-link font-medium">Home</a>
+        <a href="{% url 'marketplace:list' %}" class="nav-link font-medium">List Item</a>
+        <a href="{% url 'marketplace:login' %}" class="nav-link font-medium">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero py-20 px-4 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
+        Buy & Sell with Confidence in Namibia
+      </h2>
+      <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+        Namibia's trusted marketplace for second-hand goods. Connect with local buyers and sellers safely and securely.
+      </p>
+      <a href="{% url 'marketplace:list' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">
+        Sell Your Item <i class="fas fa-arrow-right ml-2"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="max-w-7xl mx-auto px-4 py-12">
+    <h2 class="text-2xl font-bold text-center mb-12 text-gray-800">
+      Browse Popular Categories
+    </h2>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <!-- Appliance Card -->
+      <a href="{% url 'marketplace:appliance' %}" class="category-card group">
+        <div class="overflow-hidden">
+          <img src="{% static 'marketplace/pictures/Appliance.jpeg' %}" alt="Appliances" class="category-img w-full">
+        </div>
+        <div class="p-4 text-center">
+          <h3 class="category-title text-lg font-semibold mb-1">Appliances</h3>
+          <p class="text-gray-500 text-sm">Quality home appliances</p>
+        </div>
+      </a>
+
+      <!-- Laptops Card -->
+      <a href="{% url 'marketplace:laptops' %}" class="category-card group">
+        <div class="overflow-hidden">
+          <img src="{% static 'marketplace/pictures/laptopt.jpeg' %}" alt="Laptops" class="category-img w-full">
+        </div>
+        <div class="p-4 text-center">
+          <h3 class="category-title text-lg font-semibold mb-1">Laptops</h3>
+          <p class="text-gray-500 text-sm">Tech for work & play</p>
+        </div>
+      </a>
+
+      <!-- Phones Card -->
+      <a href="{% url 'marketplace:phones' %}" class="category-card group">
+        <div class="overflow-hidden">
+          <img src="{% static 'marketplace/pictures/phones.jpeg' %}" alt="Phones" class="category-img w-full">
+        </div>
+        <div class="p-4 text-center">
+          <h3 class="category-title text-lg font-semibold mb-1">Phones</h3>
+          <p class="text-gray-500 text-sm">Smartphones & accessories</p>
+        </div>
+      </a>
+
+      <!-- Clothing Card -->
+      <a href="{% url 'marketplace:clothing' %}" class="category-card group">
+        <div class="overflow-hidden">
+          <img src="{% static 'marketplace/pictures/download.jpeg' %}" alt="Clothing" class="category-img w-full">
+        </div>
+        <div class="p-4 text-center">
+          <h3 class="category-title text-lg font-semibold mb-1">Clothing</h3>
+          <p class="text-gray-500 text-sm">Fashion for everyone</p>
+        </div>
+      </a>
+
+      <!-- Home Goods Card -->
+      <a href="{% url 'marketplace:homegoods' %}" class="category-card group">
+        <div class="overflow-hidden">
+          <img src="{% static 'marketplace/pictures/HomeGoods.jpeg' %}" alt="Home Goods" class="category-img w-full">
+        </div>
+        <div class="p-4 text-center">
+          <h3 class="category-title text-lg font-semibold mb-1">Home Goods</h3>
+          <p class="text-gray-500 text-sm">Furniture & decor</p>
+        </div>
+      </a>
+
+      <!-- Vehicles Card -->
+      <a href="{% url 'marketplace:vehicles' %}" class="category-card group">
+        <div class="overflow-hidden">
+          <img src="{% static 'marketplace/pictures/vehicle.jpeg' %}" alt="Vehicles" class="category-img w-full">
+        </div>
+        <div class="p-4 text-center">
+          <h3 class="category-title text-lg font-semibold mb-1">Vehicles</h3>
+          <p class="text-gray-500 text-sm">Cars & transport</p>
+        </div>
+      </a>
+
+      <!-- Beauty Card -->
+      <a href="{% url 'marketplace:beauty' %}" class="category-card group">
+        <div class="overflow-hidden">
+          <img src="{% static 'marketplace/pictures/BeautyProducts.jpeg' %}" alt="Beauty" class="category-img w-full">
+        </div>
+        <div class="p-4 text-center">
+          <h3 class="category-title text-lg font-semibold mb-1">Beauty</h3>
+          <p class="text-gray-500 text-sm">Cosmetics & care</p>
+        </div>
+      </a>
+
+      <!-- Other Card -->
+      <a href="{% url 'marketplace:other' %}" class="category-card group">
+        <div class="overflow-hidden">
+          <img src="{% static 'marketplace/pictures/others.jpeg' %}" alt="Other" class="category-img w-full">
+        </div>
+        <div class="p-4 text-center">
+          <h3 class="category-title text-lg font-semibold mb-1">Other</h3>
+          <p class="text-gray-500 text-sm">Miscellaneous items</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="bg-blue-50 py-16 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800">Ready to find your next treasure?</h2>
+      <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Join thousands of Namibians buying and selling on Namibia's most trusted marketplace.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="{% url 'marketplace:signup' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition duration-300">
+          Sign Up Now <i class="fas fa-user-plus ml-2"></i>
+        </a>
+        <a href="{% url 'marketplace:list' %}" class="bg-white hover:bg-gray-100 text-blue-600 font-medium py-3 px-8 rounded-lg border border-blue-600 transition duration-300">
+          List an Item <i class="fas fa-plus ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer py-8 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <h2 class="text-xl font-bold text-white flex items-center">
+            <i class="fas fa-store mr-2"></i>
+            NamZone
+          </h2>
+          <p class="text-blue-200 mt-1">Namibia's Favorite Marketplace</p>
+        </div>
+        <div class="flex space-x-6">
+          <a href="#" class="text-blue-200 hover:text-white transition">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="text-blue-200 hover:text-white transition">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="text-blue-200 hover:text-white transition">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-blue-900 text-center text-blue-300 text-sm">
+        &copy; 2025 NamZone. All rights reserved. | 
+        <a href="#" class="hover:text-white">Privacy Policy</a> | 
+        <a href="#" class="hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

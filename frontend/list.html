@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>List Item - NamZone</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+  <!-- Navbar -->
+  <header class="bg-white shadow p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold">NamZone</h1>
+      <nav class="space-x-6 text-sm">
+        <a href="index.html" class="hover:text-blue-600">Home</a>
+        <a href="list.html" class="text-blue-600 font-semibold">List Item</a>
+        <a href="login.html" class="hover:text-blue-600">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- List Item Form -->
+  <section class="max-w-xl mx-auto mt-12 p-6 bg-white rounded shadow">
+    <h2 class="text-2xl font-bold mb-4">List Your Item</h2>
+
+    <!-- Alert Message (hidden initially) -->
+    <div id="login-alert" class="hidden text-red-600 font-medium mb-4 text-center">
+      You must be logged in to list an item. <a href="login.html" class="text-blue-600 underline">Login here</a>.
+    </div>
+
+    <form id="list-form" class="space-y-4">
+      <input type="text" placeholder="Item Name" class="w-full border p-2 rounded" required />
+      <input type="number" placeholder="Price (N$)" class="w-full border p-2 rounded" required />
+      <select class="w-full border p-2 rounded" required>
+        <option value="">Select Category</option>
+        <option value="appliance">Appliance</option>
+        <option value="laptop">Laptop</option>
+        <option value="phone">Phone</option>
+      </select>
+      <textarea placeholder="Description" class="w-full border p-2 rounded" rows="3"></textarea>
+      <input type="file" class="w-full border p-2 rounded" multiple />
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Submit</button>
+    </form>
+  </section>
+
+  <script>
+    const form = document.getElementById("list-form");
+    const alertBox = document.getElementById("login-alert");
+
+    form.addEventListener("submit", function(e) {
+      const isLoggedIn = localStorage.getItem("namzone_user"); // change this to your auth logic
+      if (!isLoggedIn) {
+        e.preventDefault(); // stop form from submitting
+        alertBox.classList.remove("hidden"); // show the login alert
+        alertBox.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  </script>
+</body>
+</html>

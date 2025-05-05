@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - NamZone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="{% static 'marketplace/css/styles.css' %}" rel="stylesheet">
+  <style>
+    /* html, body {
+      height: 100%;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      background-color: #f8fafc;
+    } */
+    .content {
+      flex: 1 0 auto;
+    }
+    
+    .login-container {
+      background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      border-radius: 0.75rem;
+    }
+    .btn-primary {
+      transition: all 0.3s ease;
+      background-image: linear-gradient(to right, #3b82f6, #2563eb);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  <script>
+    function togglePassword() {
+      const passwordField = document.getElementById('password');
+      const toggleIcon = document.getElementById('toggle-icon');
+      if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        toggleIcon.innerHTML = '👁️';
+      } else {
+        passwordField.type = 'password';
+        toggleIcon.innerHTML = '👁️‍🗨️';
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen flex flex-col bg-gray-50">
+  <!-- Navbar -->
+  <header class="header p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
+      <h1 class="text-2xl font-bold text-blue-600 flex items-center">
+        <i class="fas fa-store mr-2"></i>
+        NamZone
+      </h1>
+      <nav class="flex space-x-6">
+        <a href="{% url 'marketplace:home' %}" class="nav-link font-medium">Home</a>
+        <a href="{% url 'marketplace:list' %}" class="nav-link font-medium">List Item</a>
+        <a href="{% url 'marketplace:login' %}" class="nav-link font-medium">Login</a>
+      </nav>
+    </div>
+  </header>
+  <!-- Main Content -->
+  <main class="content flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md">
+      <!-- Login Form -->
+      <div class="login-container p-8">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-extrabold text-gray-900">Welcome back</h2>
+          <p class="mt-2 text-sm text-gray-600">Sign in to your account</p>
+        </div>
+
+        {% if messages %}
+          <div class="mb-6 space-y-2">
+            {% for message in messages %}
+              <div class="p-3 text-center text-sm text-white bg-red-500 rounded-lg shadow-sm">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        
+        {% if '/admin/' in request.GET.next or 'admin-dashboard' in request.GET.next %}
+        <div class="mb-6 p-3 text-center text-sm text-blue-800 bg-blue-50 rounded-lg border border-blue-100 shadow-sm">
+          <svg class="inline-block w-5 h-5 mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+          Admin login required
+        </div>
+        {% endif %}
+
+        <form method="post" class="space-y-6" action="{% url 'marketplace:login' %}?next={{ request.GET.next }}">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.GET.next|default:request.path }}">
+          {% csrf_token %}
+          
+          <div>
+            <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+            <div class="mt-1 relative rounded-md shadow-sm">
+                <input type="text" id="username" name="username" required 
+                       class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400 transition duration-150 ease-in-out" 
+                       placeholder="Your username">
+            </div>
+        </div>
+
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <div class="mt-1 relative rounded-md shadow-sm">
+              <input type="password" id="password" name="password" required 
+                     class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400 pr-10 transition duration-150 ease-in-out" 
+                     placeholder="••••••••">
+              <button type="button" onclick="togglePassword()" 
+                      class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-500 transition-colors">
+                <span id="toggle-icon" class="text-lg">👁️‍🗨️</span>
+              </button>
+            </div>
+          </div>
+
+          <input type="hidden" name="next" value="{{ request.GET.next }}" />
+
+          <div>
+            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white btn-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              Sign in
+            </button>
+          </div>
+        </form>
+
+        <div class="mt-6">
+          <div class="relative">
+            <div class="absolute inset-0 flex items-center">
+              <div class="w-full border-t border-gray-300"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+              <span class="px-2 bg-white text-gray-500">Need help?</span>
+            </div>
+          </div>
+
+          <div class="mt-4 flex justify-between text-sm">
+            <a href="{% url 'marketplace:signup' %}" class="font-medium text-blue-600 hover:text-blue-500 transition-colors">
+              Create account
+            </a>
+            <a href="#" class="font-medium text-blue-600 hover:text-blue-500 transition-colors">
+              Forgot password?
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <!-- Footer -->
+  <footer class="footer py-8 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <h2 class="text-xl font-bold text-white flex items-center">
+            <i class="fas fa-store mr-2"></i>
+            NamZone
+          </h2>
+          <p class="text-blue-200 mt-1">Namibia's Favorite Marketplace</p>
+        </div>
+        <div class="flex space-x-6">
+          <a href="#" class="text-blue-200 hover:text-white transition">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="text-blue-200 hover:text-white transition">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="text-blue-200 hover:text-white transition">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-blue-900 text-center text-blue-300 text-sm">
+        &copy; 2025 NamZone. All rights reserved. | 
+        <a href="#" class="hover:text-white">Privacy Policy</a> | 
+        <a href="#" class="hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

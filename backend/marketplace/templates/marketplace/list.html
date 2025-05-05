@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>List Item - NamZone</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="{% static 'marketplace/css/styles.css' %}" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+  <!-- Navbar -->
+  <header class="header p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
+      <h1 class="text-2xl font-bold text-blue-600 flex items-center">
+        <i class="fas fa-store mr-2"></i>
+        NamZone
+      </h1>
+      <nav class="flex space-x-6">
+        <a href="{% url 'marketplace:home' %}" class="nav-link font-medium">Home</a>
+        <a href="{% url 'marketplace:list' %}" class="nav-link font-medium">List Item</a>
+        <a href="{% url 'marketplace:login' %}" class="nav-link font-medium">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- List Item Form -->
+  <section class="max-w-xl mx-auto mt-12 p-6 bg-white rounded shadow">
+    <h2 class="text-2xl font-bold mb-4">List Your Item</h2>
+
+    <!-- Alert Message (hidden initially) -->
+    <div id="login-alert" class="hidden text-red-600 font-medium mb-4 text-center">
+      You must be logged in to list an item. <a href="{% url 'marketplace:login' %}" class="text-blue-600 underline">Login here</a>.
+    </div>
+
+    <form id="list-form" class="space-y-4" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="text" name="item_name" placeholder="Item Name" class="w-full border p-2 rounded" required />
+      <input type="number" name="price" placeholder="Price (N$)" class="w-full border p-2 rounded" required />
+      <select name="category" class="w-full border p-2 rounded" required>
+        <option value="">Select Category</option>
+        <option value="appliance">Appliance</option>
+        <option value="laptop">Laptop</option>
+        <option value="phone">Phone</option>
+      </select>
+      <textarea name="description" placeholder="Description" class="w-full border p-2 rounded" rows="3"></textarea>
+      <input type="file" name="images" class="w-full border p-2 rounded" multiple />
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Submit</button>
+    </form>
+  </section>
+
+  <script>
+    const isLoggedIn = document.body.getAttribute('data-is-authenticated') === 'true';
+    const form = document.getElementById("list-form");
+    const alertBox = document.getElementById("login-alert");
+
+    if (!isLoggedIn) {
+      alertBox.classList.remove("hidden");
+      form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        alertBox.scrollIntoView({ behavior: "smooth" });
+        window.location.href = "{% url 'marketplace:login' %}?next={% url 'marketplace:list' %}";
+      });
+    }
+  </script>
+</body>
+</html>

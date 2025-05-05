@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up - NamZone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Add Font Awesome for eye icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="{% static 'marketplace/css/styles.css' %}" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  <!-- Navbar -->
+  <header class="header p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
+      <h1 class="text-2xl font-bold text-blue-600 flex items-center">
+        <i class="fas fa-store mr-2"></i>
+        NamZone
+      </h1>
+      <nav class="flex space-x-6">
+        <a href="{% url 'marketplace:home' %}" class="nav-link font-medium">Home</a>
+        <a href="{% url 'marketplace:list' %}" class="nav-link font-medium">List Item</a>
+        <a href="{% url 'marketplace:login' %}" class="nav-link font-medium">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Sign Up Form -->
+  <section class="max-w-xl mx-auto mt-12 p-6 bg-white rounded shadow">
+    <h2 class="text-2xl font-bold mb-6 text-center">Create Your NamZone Account</h2>
+    
+    {% if form.errors %}
+      <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+        {% for field in form %}
+          {% for error in field.errors %}
+            <p>{{ error|escape }}</p>
+          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <p>{{ error|escape }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
+      
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+        <input type="text" name="username" class="w-full border p-2 rounded" required>
+        <p class="text-xs text-gray-500 mt-1">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</p>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input type="email" name="email" class="w-full border p-2 rounded" required>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+        <input type="tel" name="phone_number" class="w-full border p-2 rounded" required>
+        <p class="text-xs text-gray-500 mt-1">Please enter your Namibian phone number (e.g., +264811234567)</p>
+      </div>
+
+      <div class="relative">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <input type="password" name="password1" id="password1" class="w-full border p-2 rounded pr-10" required>
+        <span class="absolute inset-y-0 right-0 flex items-center pr-3 pt-6 cursor-pointer" onclick="togglePassword('password1')">
+          <i class="far fa-eye" id="togglePassword1"></i>
+        </span>
+        <p class="text-xs text-gray-500 mt-1">
+          Your password must contain at least 8 characters, can't be too common, and can't be entirely numeric.
+        </p>
+      </div>
+
+      <div class="relative">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+        <input type="password" name="password2" id="password2" class="w-full border p-2 rounded pr-10" required>
+        <span class="absolute inset-y-0 right-0 flex items-center pr-3 pt-6 cursor-pointer" onclick="togglePassword('password2')">
+          <i class="far fa-eye" id="togglePassword2"></i>
+        </span>
+      </div>
+
+      <!-- <div class="flex items-center">
+        <input type="checkbox" id="terms" name="terms" class="mr-2" required>
+        <label for="terms" class="text-sm text-gray-700">
+          I agree to the <a href="#" class="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>
+        </label>
+      </div> -->
+
+      <button type="submit" class="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700 transition">
+        Sign Up
+      </button>
+
+      <p class="text-sm text-center mt-2">Already have an account? 
+        <a href="{% url 'marketplace:login' %}" class="text-blue-600 hover:underline">Login here</a>.
+      </p>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer py-8 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <h2 class="text-xl font-bold text-white flex items-center">
+            <i class="fas fa-store mr-2"></i>
+            NamZone
+          </h2>
+          <p class="text-blue-200 mt-1">Namibia's Favorite Marketplace</p>
+        </div>
+        <div class="flex space-x-6">
+          <a href="#" class="text-blue-200 hover:text-white transition">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="text-blue-200 hover:text-white transition">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="text-blue-200 hover:text-white transition">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-blue-900 text-center text-blue-300 text-sm">
+        &copy; 2025 NamZone. All rights reserved. | 
+        <a href="#" class="hover:text-white">Privacy Policy</a> | 
+        <a href="#" class="hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function togglePassword(fieldId) {
+      const passwordField = document.getElementById(fieldId);
+      const toggleIcon = document.getElementById(`toggle${fieldId}`);
+      
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        passwordField.type = "password";
+        toggleIcon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    }
+
+    // Phone number validation
+    document.querySelector('input[name="phone_number"]').addEventListener('input', function(e) {
+      // Basic validation for Namibian numbers
+      const value = e.target.value;
+      if (!value.startsWith('+264') && value.length > 0) {
+        e.target.setCustomValidity('Please enter a valid Namibian number starting with +264');
+      } else {
+        e.target.setCustomValidity('');
+      }
+    });
+  </script>
+</body>
+</html>

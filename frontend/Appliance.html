@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Appliances - NamZone</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <!-- Navbar -->
+  <header class="bg-white shadow p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold">NamZone</h1>
+      <nav class="space-x-6 text-sm">
+        <a href="index.html" class="hover:text-blue-600">Home</a>
+        <a href="list.html" class="hover:text-blue-600">List Item</a>
+        <a href="login.html" class="hover:text-blue-600">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="text-center py-12">
+    <h2 class="text-3xl font-bold">Appliances for Sale</h2>
+    <p class="text-gray-600 mt-2">Find second-hand appliances at great prices</p>
+  </section>
+
+  <!-- Product Grid -->
+  <section class="max-w-6xl mx-auto px-4 pb-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <!-- Product Card -->
+      <div class="bg-white p-4 rounded-lg shadow text-center">
+        <img src="pictures/fridge.jpg" alt="Fridge" class="w-full h-40 object-cover mb-3 rounded">
+        <h3 class="font-semibold text-lg">Double Door Fridge</h3>
+        <p class="text-blue-600 font-bold mt-2">N$2,800</p>
+      </div>
+
+      <!-- Product Card -->
+      <div class="bg-white p-4 rounded-lg shadow text-center">
+        <img src="pictures/microwave.jpg" alt="Microwave" class="w-full h-40 object-cover mb-3 rounded">
+        <h3 class="font-semibold text-lg">Samsung Microwave</h3>
+        <p class="text-blue-600 font-bold mt-2">N$900</p>
+      </div>
+
+      <!-- Product Card -->
+      <div class="bg-white p-4 rounded-lg shadow text-center">
+        <img src="pictures/washing-machine.jpg" alt="Washing Machine" class="w-full h-40 object-cover mb-3 rounded">
+        <h3 class="font-semibold text-lg">LG Washing Machine</h3>
+        <p class="text-blue-600 font-bold mt-2">N$3,500</p>
+      </div>
+
+      <!-- Product Card -->
+      <div class="bg-white p-4 rounded-lg shadow text-center">
+        <img src="pictures/stove.jpg" alt="Stove" class="w-full h-40 object-cover mb-3 rounded">
+        <h3 class="font-semibold text-lg">Electric Stove</h3>
+        <p class="text-blue-600 font-bold mt-2">N$1,700</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center py-4">
+    &copy; 2025 NamZone. All rights reserved.
+  </footer>
+</body>
+</html>

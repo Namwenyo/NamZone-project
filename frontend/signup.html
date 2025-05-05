@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up - NamZone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  <!-- Navbar -->
+  <header class="bg-white shadow p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold">NamZone</h1>
+      <nav class="space-x-6 text-sm">
+        <a href="index.html" class="hover:text-blue-600">Home</a>
+        <a href="list.html" class="hover:text-blue-600">List Item</a>
+        <a href="login.html" class="hover:text-blue-600">Login</a>
+        <a href="signup.html" class="text-blue-600 font-semibold">Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Sign Up Form -->
+  <section class="max-w-xl mx-auto mt-12 p-6 bg-white rounded shadow">
+    <h2 class="text-2xl font-bold mb-6 text-center">Create Your NamZone Account</h2>
+    <form class="space-y-4">
+      <input type="text" placeholder="Full Name" class="w-full border p-2 rounded" required />
+      
+      <input type="email" placeholder="Email Address" class="w-full border p-2 rounded" required />
+
+      <input type="tel" placeholder="Phone Number" class="w-full border p-2 rounded" required />
+
+      <input type="password" placeholder="Password" class="w-full border p-2 rounded" required />
+      <input type="password" placeholder="Confirm Password" class="w-full border p-2 rounded" required />
+
+      <!-- ID Upload -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Upload ID Document</label>
+        <input type="file" accept="image/*,.pdf" class="w-full border p-2 rounded" required />
+      </div>
+
+      <!-- Proof of Residence -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Upload Proof of Residence</label>
+        <input type="file" accept="image/*,.pdf" class="w-full border p-2 rounded" required />
+      </div>
+
+      <button type="submit" class="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700 transition">
+        Sign Up
+      </button>
+
+      <p class="text-sm text-center mt-2">Already have an account? 
+        <a href="login.html" class="text-blue-600 hover:underline">Login here</a>.
+      </p>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center py-4 mt-12">
+    &copy; 2025 NamZone. All rights reserved.
+  </footer>
+</body>
+</html>

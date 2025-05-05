@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - NamZone</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  {% load static %}
+  <link href="{% static 'marketplace/css/styles.css' %}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
+</head>
+<body class="min-h-screen flex flex-col">
+  <header class="header p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold flex items-center">
+        <span class="mdi mdi-shield-account mr-2"></span>
+        Admin Dashboard
+      </h1>
+      <nav class="space-x-6">
+        <a href="{% url 'marketplace:approve_items' %}" class="nav-link text-sm font-medium flex items-center">
+          <span class="mdi mdi-clipboard-check mr-1"></span>
+          Approve Listings
+        </a>
+        <a href="#" class="nav-link text-sm font-medium flex items-center">
+          <span class="mdi mdi-account-group mr-1"></span>
+          Manage Users
+        </a>
+        <a href="{% url 'marketplace:logout' %}" class="logout-link text-sm font-medium flex items-center">
+          <span class="mdi mdi-logout mr-1"></span>
+          Logout
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-6xl mx-auto p-6">
+    <div class="mb-8">
+      <h2 class="text-2xl font-semibold text-gray-800">Welcome back, Admin</h2>
+      <p class="text-gray-600 mt-1">Here's what's happening with your marketplace today</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Approvals Card -->
+      <div class="dashboard-card card-approvals p-6">
+        <div class="flex items-center mb-4">
+          <div class="bg-blue-100 p-3 rounded-full mr-4">
+            <span class="mdi mdi-clipboard-list text-blue-600 text-xl"></span>
+          </div>
+          <h3 class="card-title text-lg">Pending Listings</h3>
+        </div>
+        <p class="card-text mt-2 text-sm">Review and approve items submitted by users.</p>
+        <a href="{% url 'marketplace:approve_items' %}" class="card-link inline-block mt-4 text-sm flex items-center">
+          Go to Approvals
+          <span class="mdi mdi-arrow-right ml-1"></span>
+        </a>
+      </div>
+
+      <!-- Users Card -->
+      <div class="dashboard-card card-users p-6">
+        <div class="flex items-center mb-4">
+          <div class="bg-green-100 p-3 rounded-full mr-4">
+            <span class="mdi mdi-account-group text-green-600 text-xl"></span>
+          </div>
+          <h3 class="card-title text-lg">Registered Users</h3>
+        </div>
+        <p class="card-text mt-2 text-sm">Manage user accounts and permissions.</p>
+        <a href="#" class="card-link inline-block mt-4 text-sm flex items-center">
+          View Users
+          <span class="mdi mdi-arrow-right ml-1"></span>
+        </a>
+      </div>
+
+      <!-- Reports Card -->
+      <div class="dashboard-card card-reports p-6">
+        <div class="flex items-center mb-4">
+          <div class="bg-purple-100 p-3 rounded-full mr-4">
+            <span class="mdi mdi-chart-bar text-purple-600 text-xl"></span>
+          </div>
+          <h3 class="card-title text-lg">Reports</h3>
+        </div>
+        <p class="card-text mt-2 text-sm">View platform analytics and activity.</p>
+        <a href="#" class="card-link inline-block mt-4 text-sm flex items-center">
+          View Reports
+          <span class="mdi mdi-arrow-right ml-1"></span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm">
+        &copy; 2025 NamZone. Admin Portal. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
