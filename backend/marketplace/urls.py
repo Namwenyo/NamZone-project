@@ -9,9 +9,9 @@ urlpatterns = [
     path('list/', views.list_item, name='list'),
     path('login/', views.login_view, name='login'),
     path('signup/', views.signup_view, name='signup'),
-     path('logout/', views.logout_view, name='logout'),
+    path('logout/', views.logout_view, name='logout'),
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
-    
+    path('seller-dashboard/', views.seller_dashboard, name='seller_dashboard'), 
     # Category Pages
     path('appliance/', views.appliance, name='appliance'),
     path('laptops/', views.laptops, name='laptops'),

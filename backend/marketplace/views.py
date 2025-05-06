@@ -6,7 +6,9 @@ from django.contrib.auth.decorators import login_required
 from networkx import reverse
 from .forms import SignUpForm, ItemForm
 from .models import Item, Category, User
-from .backends import CustomAuthBackend 
+from .backends import CustomAuthBackend
+from django.contrib.auth.forms import AuthenticationForm
+
 
 def home(request):
     featured_items = Item.objects.filter(status='A').order_by('-created_at')[:8]
@@ -35,33 +37,35 @@ def list_item(request):
     
     return render(request, 'marketplace/list.html', {'form': form})
 
-def login_view(request):
-    if request.user.is_authenticated:
-        return redirect('marketplace:home')
-    
-    next_url = request.GET.get('next', '')
-        
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        
-        if user is not None:
-            login(request, user)
-            messages.success(request, f"Welcome back, {user.username}!")
-            next_url = request.POST.get('next') or request.GET.get('next', '')
-            if next_url:
-                return redirect(next_url)
-            if user.is_staff:
-                return redirect('marketplace:admin_dashboard')
-            return redirect('marketplace:home')
-        else:
-            messages.error(request, "Invalid username or password")
-    
-    return render(request, 'marketplace/login.html', {
-        'next': request.GET.get('next', '')
+@login_required
+def seller_dashboard(request):
+    """Dashboard for regular sellers (non-admin users)."""
+    # Example: Show the seller's listed items
+    seller_items = Item.objects.filter(seller=request.user)
+    return render(request, 'marketplace/seller_dashboard.html', {
+        'items': seller_items,
     })
 
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            
+            if user is not None:
+                login(request, user)
+                # Redirect based on user role
+                if user.is_superuser:
+                    return redirect('marketplace:admin_dashboard')
+                else:
+                    return redirect('marketplace:seller_dashboard')
+        # If form is invalid, it will fall through to render with errors
+    else:
+        form = AuthenticationForm()
+    
+    return render(request, 'marketplace/login.html', {'form': form})
 def signup_view(request):
     if request.user.is_authenticated:
         return redirect('marketplace:home')

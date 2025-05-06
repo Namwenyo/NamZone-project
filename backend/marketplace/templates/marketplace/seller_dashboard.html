@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Seller Dashboard</h1>
+<p>Welcome, {{ request.user.username }}!</p>
+
+<h2>Your Listed Items</h2>
+<ul>
+    {% for item in items %}
+        <li>{{ item.name }} - {{ item.price }}</li>
+    {% empty %}
+        <li>You haven't listed any items yet.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'marketplace:list' %}">List a New Item</a>
+{% endblock %}
