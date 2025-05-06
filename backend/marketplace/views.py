@@ -66,9 +66,10 @@ def login_view(request):
         form = AuthenticationForm()
     
     return render(request, 'marketplace/login.html', {'form': form})
+
 def signup_view(request):
     if request.user.is_authenticated:
-        return redirect('marketplace:home')
+        return render(request, 'marketplace/signup.html')
         
     if request.method == 'POST':
         form = SignUpForm(request.POST)
