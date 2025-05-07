@@ -5,6 +5,7 @@ from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from .models import User, Item, Category
 import re
+from .models import SellerProfile
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(
@@ -174,3 +175,26 @@ class ItemForm(forms.ModelForm):
             if not image.name.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')):
                 raise ValidationError("Only JPG, PNG, or WEBP images are allowed.")
         return image
+
+class SellerSignupForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+    phone_number = forms.CharField(max_length=15, required=True)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'phone_number', 'password1', 'password2')
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+            profile = SellerProfile.objects.get(user=user)
+            profile.phone_number = self.cleaned_data['phone_number']
+            profile.email = self.cleaned_data['email']
+            profile.save()
+            
+            # Set password properly
+            user.set_password(self.cleaned_data['password1'])
+            user.save()
+        return user   

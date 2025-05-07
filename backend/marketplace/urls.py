@@ -11,7 +11,8 @@ urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('logout/', views.logout_view, name='logout'),
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
-    path('seller-dashboard/', views.seller_dashboard, name='seller_dashboard'), 
+    path('seller-dashboard/', views.seller_dashboard, name='seller_dashboard'),
+    path('edit-profile/', views.edit_profile, name='edit_profile'), 
     # Category Pages
     path('appliance/', views.appliance, name='appliance'),
     path('laptops/', views.laptops, name='laptops'),

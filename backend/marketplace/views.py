@@ -8,7 +8,9 @@ from .forms import SignUpForm, ItemForm
 from .models import Item, Category, User
 from .backends import CustomAuthBackend
 from django.contrib.auth.forms import AuthenticationForm
-
+from django.contrib.auth.forms import UserCreationForm
+from .forms import SellerSignupForm
+from django.contrib.auth.backends import ModelBackend
 
 def home(request):
     featured_items = Item.objects.filter(status='A').order_by('-created_at')[:8]
@@ -68,26 +70,31 @@ def login_view(request):
     return render(request, 'marketplace/login.html', {'form': form})
 
 def signup_view(request):
-    if request.user.is_authenticated:
-        return render(request, 'marketplace/signup.html')
-        
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form = SellerSignupForm(request.POST)
         if form.is_valid():
             user = form.save()
             
-            # Explicitly specify which backend to use
-            backend = CustomAuthBackend()
-            login(request, user, backend='marketplace.backends.CustomAuthBackend')
+            # Set backend and log in
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            login(request, user)
             
-            messages.success(request, "Account created successfully!")
-            return redirect('marketplace:home')
+            messages.success(request, "Registration successful!")
+            return redirect('marketplace:seller_dashboard')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
     else:
-        form = SignUpForm()
+        form = SellerSignupForm()
     
     return render(request, 'marketplace/signup.html', {'form': form})
 
-# Category Views (keeping your original separate views)
+@login_required
+def seller_dashboard(request):
+    profile = request.user.sellerprofile
+    return render(request, 'marketplace/seller_dashboard.html', {'profile': profile})# Category Views (keeping your original separate views)
+
 def appliance(request):
     items = Item.objects.filter(category__name='Appliance', status='A').order_by('-created_at')
     return render(request, 'marketplace/appliance.html', {'items': items})
@@ -151,3 +158,21 @@ def approve_items(request):
         return redirect('marketplace:approve_items')
     
     return render(request, 'marketplace/approve_items.html', {'items': pending_items})
+
+@login_required
+def edit_profile(request):
+    profile = request.user.sellerprofile
+    
+    if request.method == 'POST':
+        new_email = request.POST.get('email')
+        new_phone = request.POST.get('phone_number')
+        
+        # Update profile
+        profile.email = new_email
+        profile.phone_number = new_phone
+        profile.save()
+        
+        messages.success(request, "Profile updated successfully!")
+        return redirect('marketplace:seller_dashboard')
+    
+    return render(request, 'marketplace/edit_profile.html', {'profile': profile})
