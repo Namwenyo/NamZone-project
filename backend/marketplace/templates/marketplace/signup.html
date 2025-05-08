@@ -1,34 +1,9 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Sign Up - NamZone</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <!-- Add Font Awesome for eye icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link href="{% static 'marketplace/css/styles.css' %}" rel="stylesheet">
-</head>
-<body class="bg-gray-100">
-  <!-- Navbar -->
-  <header class="header p-4">
-    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
-      <h1 class="text-2xl font-bold text-blue-600 flex items-center">
-        <i class="fas fa-store mr-2"></i>
-        NamZone
-      </h1>
-      <nav class="flex space-x-6">
-        <a href="{% url 'marketplace:home' %}" class="nav-link font-medium">Home</a>
-        <a href="{% url 'marketplace:list' %}" class="nav-link font-medium">List Item</a>
-        <a href="{% url 'marketplace:login' %}" class="nav-link font-medium">Login</a>
-      </nav>
-    </div>
-  </header>
-   <!-- Or your base template -->
-  {% load static %}
+{% extends "marketplace/base.html" %}
+
+{% block title %}signUp - NamZone{% endblock %}
+
+{% block content %}
   
-  {% block content %}
   <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
       <div>
@@ -56,31 +31,41 @@
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                    placeholder="Username">
           </div>
-          <!-- Add these fields to your form -->
-<div>
-  <label for="id_email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-  <input type="email" id="id_email" name="email" required
-         class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400 transition duration-150 ease-in-out"
-         placeholder="your@email.com">
-</div>
 
-<div>
-  <label for="id_phone_number" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-  <input type="tel" id="id_phone_number" name="phone_number" required
-         class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400 transition duration-150 ease-in-out"
-         placeholder="+264 81 234 5678">
-</div>
           <div>
+            <label for="id_email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" id="id_email" name="email" required
+                   class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400 transition duration-150 ease-in-out"
+                   placeholder="your@email.com">
+          </div>
+
+          <div>
+            <label for="id_phone_number" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+            <input type="tel" id="id_phone_number" name="phone_number" required
+                   class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400 transition duration-150 ease-in-out"
+                   placeholder="+264 81 234 5678">
+          </div>
+
+          <!-- Password Field 1 -->
+          <div class="relative">
             <label for="id_password1" class="sr-only">Password</label>
             <input id="id_password1" name="password1" type="password" required
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                    placeholder="Password">
+            <button type="button" onclick="togglePassword('id_password1')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-gray-500">
+              <i id="toggleid_password1" class="fa fa-eye"></i>
+            </button>
           </div>
-          <div>
+
+          <!-- Password Field 2 -->
+          <div class="relative">
             <label for="id_password2" class="sr-only">Confirm Password</label>
             <input id="id_password2" name="password2" type="password" required
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                    placeholder="Confirm Password">
+            <button type="button" onclick="togglePassword('id_password2')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-gray-500">
+              <i id="toggleid_password2" class="fa fa-eye"></i>
+            </button>
           </div>
         </div>
   
@@ -98,7 +83,7 @@
       </div>
     </div>
   </div>
-  {% endblock %}
+  
 
   <script>
     function togglePassword(fieldId) {
@@ -125,5 +110,4 @@
       }
     });
   </script>
-</body>
-</html>
+{% endblock %}

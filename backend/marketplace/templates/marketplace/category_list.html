@@ -1,0 +1,23 @@
+{% extends "marketplace/base.html" %}
+
+{% block title %}{{ category_name }} - NamZone{% endblock %}
+
+{% block content %}
+<section class="max-w-6xl mx-auto px-4 py-12">
+  <h2 class="text-2xl font-bold mb-6">{{ category_name }} for Sale</h2>
+
+  {% if items %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {% for item in items %}
+        <div class="bg-white p-4 rounded shadow">
+          <img src="{{ item.image.url }}" alt="{{ item.title }}" class="w-full h-48 object-cover rounded mb-4">
+          <h3 class="text-lg font-semibold">{{ item.title }}</h3>
+          <p class="text-blue-600 font-bold">N$ {{ item.price }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-gray-600 text-lg">No {{ category_name|lower }} listed yet. Please check back later.</p>
+  {% endif %}
+</section>
+{% endblock %}

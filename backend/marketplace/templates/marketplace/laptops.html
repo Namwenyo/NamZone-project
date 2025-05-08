@@ -1,49 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Laptops - NamZone</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-50 text-gray-800">
-  <!-- Navbar -->
-  <header class="bg-white shadow p-4">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <h1 class="text-xl font-bold">NamZone</h1>
-      <nav class="space-x-6 text-sm">
-        <a href="index.html" class="hover:text-blue-600">Home</a>
-        <a href="list.html" class="hover:text-blue-600">List Item</a>
-        <a href="login.html" class="hover:text-blue-600">Login</a>
-      </nav>
-    </div>
-  </header>
+{% extends "marketplace/base.html" %}
 
-  <!-- Laptop Listings -->
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <h2 class="text-2xl font-bold mb-6">Laptops for Sale</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <div class="bg-white p-4 rounded shadow">
-        <img src="pictures/laptop1.jpeg" alt="Laptop 1" class="w-full h-48 object-cover rounded mb-4">
-        <h3 class="text-lg font-semibold">HP Pavilion 15</h3>
-        <p class="text-blue-600 font-bold">N$ 6,500</p>
-      </div>
-      <div class="bg-white p-4 rounded shadow">
-        <img src="pictures/laptop2.jpeg" alt="Laptop 2" class="w-full h-48 object-cover rounded mb-4">
-        <h3 class="text-lg font-semibold">Dell Inspiron 14</h3>
-        <p class="text-blue-600 font-bold">N$ 7,200</p>
-      </div>
-      <div class="bg-white p-4 rounded shadow">
-        <img src="pictures/laptop3.jpeg" alt="Laptop 3" class="w-full h-48 object-cover rounded mb-4">
-        <h3 class="text-lg font-semibold">Lenovo ThinkPad X1</h3>
-        <p class="text-blue-600 font-bold">N$ 9,900</p>
-      </div>
-    </div>
+{% block title %}Laptops - NamZone{% endblock %}
+
+{% block content %}
+  <!-- Page Header -->
+  <section class="text-center py-12">
+    <h2 class="text-3xl font-bold">Laptops for Sale</h2>
+    <p class="text-gray-600 mt-2">Browse second-hand laptops at affordable prices</p>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white text-center py-4">
-    &copy; 2025 NamZone. All rights reserved.
-  </footer>
-</body>
-</html>
+  <!-- Product Grid -->
+  <section class="max-w-6xl mx-auto px-4 pb-16">
+    {% if items %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {% for item in items %}
+          <div class="bg-white p-4 rounded-lg shadow text-center">
+            {% if item.image %}
+              <img src="{{ item.image.url }}" alt="{{ item.title }}" class="w-full h-40 object-cover mb-3 rounded">
+            {% else %}
+              <div class="w-full h-40 bg-gray-100 mb-3 rounded flex items-center justify-center text-gray-400">No image</div>
+            {% endif %}
+            <h3 class="font-semibold text-lg">{{ item.title }}</h3>
+            <p class="text-blue-600 font-bold mt-2">N$ {{ item.price }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-center text-gray-600 text-lg mt-10">No laptops listed yet. Please check back later.</p>
+    {% endif %}
+  </section>
+{% endblock %}

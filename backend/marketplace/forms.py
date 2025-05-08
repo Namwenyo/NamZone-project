@@ -1,4 +1,3 @@
-
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import RegexValidator
@@ -90,6 +89,7 @@ class ItemForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         
         # Only show active categories
+        print(Category.objects.filter(is_active=True))
         self.fields['category'].queryset = Category.objects.filter(is_active=True)
         
         # Add Tailwind classes to all fields
@@ -189,7 +189,7 @@ class SellerSignupForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         if commit:
             user.save()
-            profile = SellerProfile.objects.get(user=user)
+            profile, created = SellerProfile.objects.get_or_create(user=user)
             profile.phone_number = self.cleaned_data['phone_number']
             profile.email = self.cleaned_data['email']
             profile.save()
@@ -198,3 +198,13 @@ class SellerSignupForm(UserCreationForm):
             user.set_password(self.cleaned_data['password1'])
             user.save()
         return user   
+    
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = SellerProfile
+        fields = ['phone_number', 'email']
+
+        widgets = {
+            'phone_number': forms.TextInput(attrs={'placeholder': 'Phone Number'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Email Address'}),
+        }    

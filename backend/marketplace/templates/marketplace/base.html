@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}NamZone{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="{% static 'marketplace/css/styles.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="header p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
+      <h1 class="text-2xl font-bold text-blue-600 flex items-center">
+        <i class="fas fa-store mr-2"></i> NamZone
+      </h1>
+      <nav class="flex space-x-6">
+        <a href="{% url 'marketplace:home' %}" class="nav-link font-medium">Home</a>
+        <a href="{% url 'marketplace:list' %}" class="nav-link font-medium">List Item</a>
+        <a href="{% url 'marketplace:login' %}" class="nav-link font-medium">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer py-8 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <h2 class="text-xl font-bold text-white flex items-center">
+            <i class="fas fa-store mr-2"></i> NamZone
+          </h2>
+          <p class="text-blue-200 mt-1">Namibia's Favorite Marketplace</p>
+        </div>
+        <div class="flex space-x-6">
+          <a href="https://facebook.com" target="_blank" class="text-blue-200 hover:text-white transition">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://twitter.com" target="_blank" class="text-blue-200 hover:text-white transition">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://instagram.com" target="_blank" class="text-blue-200 hover:text-white transition">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="text-blue-200 hover:text-white transition">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-blue-900 text-center text-blue-300 text-sm">
+        &copy; 2025 NamZone. All rights reserved. |
+        <a href="#" class="hover:text-white">Privacy Policy</a> |
+        <a href="#" class="hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

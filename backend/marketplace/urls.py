@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'marketplace'
 
@@ -23,6 +25,11 @@ urlpatterns = [
     path('beauty/', views.beauty, name='beauty'),
     path('other/', views.other, name='other'),
     
+    
     # Admin/Moderation
-    path('approve-items/', views.approve_items, name='approve_items'),
+path('moderation/approve/', views.approve_items, name='approve_items'),
+path('moderation/approve/<int:item_id>/', views.approve_item, name='approve_item'),
+path('moderation/reject/<int:item_id>/', views.reject_item, name='reject_item'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

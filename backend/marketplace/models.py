@@ -3,9 +3,9 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator, MinValueValidator
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.contrib.auth.models import User
 
 class User(AbstractUser):
     class UserType(models.TextChoices):
@@ -75,20 +75,23 @@ class Item(models.Model):
         decimal_places=2,
         validators=[MinValueValidator(0.01)]
     )
-    image = models.ImageField(upload_to='items/')
+    image = models.ImageField(upload_to='item_images/', blank=True, null=True)
     status = models.CharField(max_length=1, choices=APPROVAL_STATUS, default='P')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+    is_approved = models.BooleanField(default=False)
+
     class Meta:
         ordering = ['-created_at']
     
     def __str__(self):
         return f"{self.title} (N${self.price})"
 
-    def clean(self):
-        if not self.seller.is_admin and self.seller.user_type != User.UserType.REGULAR:
-            raise ValidationError("Only regular users can list items")
+def clean(self):
+    if self.seller and self.seller.user_type != User.UserType.REGULAR:
+        raise ValidationError("Only regular users can list items.")
+
+        
 class SellerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
@@ -100,10 +103,13 @@ class SellerProfile(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
-    if created:
+    """Create a SellerProfile for each new regular User"""
+    if created and not instance.is_superuser:
         SellerProfile.objects.create(user=instance)
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    instance.sellerprofile.save()       
+    """Save the SellerProfile when regular User is saved"""
+    if not instance.is_superuser:
+        SellerProfile.objects.get_or_create(user=instance)      
             

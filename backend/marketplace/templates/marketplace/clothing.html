@@ -1,12 +1,12 @@
 {% extends "marketplace/base.html" %}
 
-{% block title %}Appliances - NamZone{% endblock %}
+{% block title %}Clothing - NamZone{% endblock %}
 
 {% block content %}
   <!-- Page Header -->
   <section class="text-center py-12">
-    <h2 class="text-3xl font-bold">Appliances for Sale</h2>
-    <p class="text-gray-600 mt-2">Find second-hand appliances at great prices</p>
+    <h2 class="text-3xl font-bold">Clothing for Sale</h2>
+    <p class="text-gray-600 mt-2">Browse affordable second-hand fashion items</p>
   </section>
 
   <!-- Product Grid -->
@@ -26,7 +26,7 @@
         {% endfor %}
       </div>
     {% else %}
-      <p class="text-center text-gray-600 text-lg mt-10">No appliances listed yet. Please check back later.</p>
+      <p class="text-center text-gray-600 text-lg mt-10">No clothing items listed yet. Please check back later.</p>
     {% endif %}
   </section>
 {% endblock %}
