@@ -8,13 +8,14 @@ This project is part of the CMP3821 Network Systems Security mini project at UNA
 -Seller dashboard for managing and tracking their listing.
 -Admin dashboard for managing listings and approval workflow before listings go live
 
-Teckhnology used
+**Teckhnology used**
 **Backend**:
-- Python 3.11
+- Python 3.11.0
 - Django 4.2
 - PostgreSQL 14
-- Django REST Framework (API endpoints)
+- Django REST Framework
 
 **Frontend**:
-- HTML5/CSS3
-- JavaScript (Vanilla ES6+)
+- HTML5
+- CSS
+- tailwindcss
